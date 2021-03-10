@@ -29,7 +29,7 @@ concepts from the `sat-search <https://github.com/sat-utils/sat-search>`__ libra
 Search endpoints.
 
 *While this library builds on the work of the PySTAC library and tries to follow the patterns of that project as much
-as possible, `pystac-api` is a separate project not in any way associated with that library.*
+as possible,* ``pystac-api`` *is a separate project not in any way associated with that library.*
 
 Supported Specifications
 ------------------------
@@ -40,7 +40,7 @@ This library is intended to work with services that implement 1 or more of the f
 * `STAC API - Item Search <https://github.com/radiantearth/stac-api-spec/tree/master/item-search>`__
    * `Fields Extension <https://github.com/radiantearth/stac-api-spec/tree/master/fragments/fields>`__ (**COMING SOON**)
    * `Query Extension <https://github.com/radiantearth/stac-api-spec/tree/master/fragments/query>`__ (**COMING SOON**)
-   * `Sort Extension <https://github.com/radiantearth/stac-api-spec/tree/master/fragments/sort>`__ (**COMING SOON**)
+   * `Sort Extension <https://github.com/radiantearth/stac-api-spec/tree/master/fragments/sort>`__
    * `Context Extension <https://github.com/radiantearth/stac-api-spec/tree/master/fragments/context>`__
 * `STAC API - Features <https://github.com/radiantearth/stac-api-spec/tree/master/ogcapi-features>`__ (based on
   `OGC API - Features <https://www.ogc.org/standards/ogcapi-features>`__) (**COMING SOON**)

@@ -64,6 +64,14 @@ Context Extension
     :undoc-members:
     :show-inheritance:
 
+Sort Extension
+++++++++++++++
+
+.. automodule:: pystac_api.extensions.sort
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Paging
 ----------
 

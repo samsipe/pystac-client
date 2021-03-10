@@ -20,11 +20,20 @@ The :meth:`pystac_api.API.search` method provides an interface for making reques
     ...     max_items=5
     ... )
 
+.. note::
+
+    The :meth:`~pystac_api.API.search` method takes arbitrary keyword arguments that may be used by API extensions to
+    add search parameters to a query. However, it *does not validate that these keyword arguments are actually used.*
+    this means that if you, for instance, use ``sort_by`` instead of ``sortby``, the request will be sent without this
+    parameter and no exception will be raised. To ensure that your parameter is being sent correctly, you may want to
+    check that it appears in the :class:`~pystac_api.ItemSearch.search_parameters_get` and/or
+    :class:`~pystac_api.ItemSearch.search_parameters_post` dictionaries.
+
 Instances of :class:`~pystac_api.ItemSearch` have 2 methods for iterating over results:
 
-* :meth:`ItemSearch.item_collections <pystac_api.ItemSearch.item_collections>`: iterates over *pages* of results,
+* :meth:`ItemSearch.item_collections() <pystac_api.ItemSearch.item_collections>`: iterates over *pages* of results,
   yielding an :class:`~pystac_api.ItemCollection` for each page of results.
-* :meth:`ItemSearch.items <pystac_api.ItemSearch.items>`: iterate over individual results, yielding a
+* :meth:`ItemSearch.items() <pystac_api.ItemSearch.items>`: iterate over individual results, yielding a
   :class:`pystac.Item` instance for all items that match the search criteria.
 
 .. code-block:: python
@@ -37,8 +46,10 @@ Instances of :class:`~pystac_api.ItemSearch` have 2 methods for iterating over r
     MYD11A1.A2019002.h12v04.006.2019003174703
     MYD11A1.A2019001.h12v04.006.2019002165238
 
-The :meth:`~pystac_api.ItemSearch.items` method handles retrieval of successive pages of results by finding any links
-with a ``"rel"`` type of ``"next"`` and parsing them to construct the next request. The default implementation of this
-``"next"`` link parsing assumes that the link follows the spec for an extended STAC link as described in the
-`STAC API - Item Search: Paging <https://github.com/radiantearth/stac-api-spec/tree/master/item-search#paging>`__
-section. See the :mod:`Paging <pystac_api.paging>` docs for details on how to customize this behavior.
+Unless you need to access attributes of the :class:`~pystac_api.ItemCollection` fragment, you will most likely want to
+loop over individual items using the :meth:`~pystac_api.ItemSearch.items` method . This method handles retrieval of
+successive pages of results by finding any links with a ``"rel"`` type of ``"next"`` and parsing them to construct the
+next request. The default implementation of this ``"next"`` link parsing assumes that the link follows the spec for an
+extended STAC link as described in the `STAC API - Item Search: Paging
+<https://github.com/radiantearth/stac-api-spec/tree/master/item-search#paging>`__ section. See the :mod:`Paging
+<pystac_api.paging>` docs for details on how to customize this behavior.

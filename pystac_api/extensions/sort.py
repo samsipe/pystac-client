@@ -4,7 +4,7 @@ from typing import Iterator, List, Optional, Tuple, Union
 
 from pystac.extensions.base import ExtensionDefinition
 
-from pystac_api import APIExtensions, ConformanceClasses, ItemSearch
+from pystac_api import API, APIExtensions, ConformanceClasses, ItemSearch
 from pystac_api.extensions import base
 
 SortBy = Tuple[str, ...]
@@ -43,9 +43,25 @@ class SortItemSearchFragment(base.ItemSearchFragment):
         return {'sortby': self._format_sortby(sortby)}
 
 
+class SortAPIExtension(base.APIExtension):
+    conformance = ConformanceClasses.STAC_API_ITEM_SEARCH_SORT_EXT
+
+    def __init__(self, api):
+        self.api = api
+
+    @classmethod
+    def from_api(cls, api):
+        return cls(api)
+
+    @classmethod
+    def _object_links(cls):
+        return []
+
+
 SORT_EXTENSION_DEFINITION = ExtensionDefinition(
     APIExtensions.SORT,
     [
+        base.ExtendedObject(API, SortAPIExtension),
         base.ExtendedObject(ItemSearch, SortItemSearchFragment),
     ]
 )

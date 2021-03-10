@@ -72,6 +72,15 @@ class TestItemSearchSortExtension:
 
 
 class TestAPISortExtension:
+    def test_implements(self):
+        api = API.from_file(ASTRAEA_API_PATH)
+        api.conformance = [
+            ConformanceClasses.STAC_API_CORE,
+            ConformanceClasses.STAC_API_ITEM_SEARCH,
+            ConformanceClasses.STAC_API_ITEM_SEARCH_SORT_EXT
+        ]
+        assert api.api_ext.implements(APIExtensions.SORT)
+
     @pytest.mark.vcr
     def test_search(self):
         api = API.from_file(ASTRAEA_API_PATH)
