@@ -14,11 +14,13 @@ from pystac_api.stac_io import read_text_method
 
 from pystac_api import extensions
 import pystac_api.extensions.context
+import pystac_api.extensions.sort
 
 # Replace the read_text_method
 STAC_IO.read_text_method = read_text_method
 
 # Add API Extensions
 STAC_API_EXTENSIONS = pystac.extensions.base.RegisteredSTACExtensions([
-    extensions.context.CONTEXT_EXTENSION_DEFINITION
+    extensions.context.CONTEXT_EXTENSION_DEFINITION,
+    extensions.sort.SORT_EXTENSION_DEFINITION,
 ])

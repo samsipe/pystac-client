@@ -8,3 +8,7 @@ class APIExtensions(str, Enum):
     CONTEXT = 'context'
     """Identifier for the `Context Extension
     <https://github.com/radiantearth/stac-api-spec/blob/master/item-search/README.md#context>`__."""
+
+    SORT = 'sort'
+    """Identifier for the `Sort Extension
+    <https://github.com/radiantearth/stac-api-spec/blob/master/item-search/README.md#sort>`__."""

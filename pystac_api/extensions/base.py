@@ -102,6 +102,12 @@ class ItemSearchFragment(ABC):
     def _object_links(cls):
         """Returns any object links added by this extension."""
 
+    def search_parameters(self, **additional_parameters):
+        """MAY be overwritten in the child class to define any additional search parameters that should be sent in the
+        request. This method will be passed any extra keyword arguments that were passed to the
+        :class:`~pystac_api.ItemSearch` instance during instantiation."""
+        return {}
+
     @classmethod
     def __init_subclass__(cls):
         if getattr(cls, 'conformance', None) is None:

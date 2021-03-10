@@ -104,7 +104,15 @@ STAC_API_ITEM_SEARCH_CONTEXT_EXT = ConformanceClass(
     alternative_uris={f'{STAC_PREFIX_LEGACY}/req/context'}
 )
 """Used to test conformance with the `Context Extension
-<https://github.com/radiantearth/stac-api-spec/tree/master/fragments/context>`__ to the STAC API - Item Search"""
+<https://github.com/radiantearth/stac-api-spec/tree/master/fragments/context>`__ to the STAC API - Item Search spec."""
+
+STAC_API_ITEM_SEARCH_SORT_EXT = ConformanceClass(
+    name='STAC API - Item Search: Sort Extension',
+    uri=f'{STAC_API_ITEM_SEARCH.uri}#sort',
+    alternative_uris={f'{STAC_PREFIX_LEGACY}/req/sort'}
+)
+"""Used to test conformance with the `Sort Extension
+<https://github.com/radiantearth/stac-api-spec/tree/master/fragments/sort>`__ to the STAC API - Item Search spec."""
 
 
 class ConformanceClasses:
@@ -112,3 +120,4 @@ class ConformanceClasses:
     STAC_API_CORE = STAC_API_CORE
     STAC_API_ITEM_SEARCH = STAC_API_ITEM_SEARCH
     STAC_API_ITEM_SEARCH_CONTEXT_EXT = STAC_API_ITEM_SEARCH_CONTEXT_EXT
+    STAC_API_ITEM_SEARCH_SORT_EXT = STAC_API_ITEM_SEARCH_SORT_EXT

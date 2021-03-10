@@ -11,7 +11,7 @@ from urllib.request import Request
 import pystac
 import pytz
 
-from pystac_api.item_collection import ItemCollection
+from pystac_api import APIExtensions, ItemCollection
 from pystac_api.paging import paginate, simple_stac_resolver
 from pystac_api.stac_api_object import STACAPIObjectMixin
 
@@ -95,6 +95,8 @@ class ItemSearch(STACAPIObjectMixin):
     collections: list, optional
         List of one or more Collection IDs or :class:`pystac.Collection` instances. Only Items in one of the provided
         Collections will be searched
+    **additional_parameters
+        Additional search parameters that may be used by API Extension implementations.
 
     Other Parameters
     ----------------
@@ -118,7 +120,8 @@ class ItemSearch(STACAPIObjectMixin):
         ids: Optional[IDsLike] = None,
         collections: Optional[CollectionsLike] = None,
         next_resolver: Callable = None,
-        conformance: List[str] = []
+        conformance: List[str] = [],
+        **additional_parameters
     ):
         self.conformance = conformance
 
@@ -136,8 +139,9 @@ class ItemSearch(STACAPIObjectMixin):
             'datetime': self._format_datetime(datetime),
             'ids': self._format_ids(ids),
             'collections': self._format_collections(collections),
-            'intersects': self._format_intersects(intersects)
+            'intersects': self._format_intersects(intersects),
         }
+        self._search_parameters.update(self._get_fragment_parameters(**additional_parameters))
 
     @property
     def url(self):
@@ -221,6 +225,13 @@ class ItemSearch(STACAPIObjectMixin):
         if isinstance(value, str):
             return json.loads(value)
         return deepcopy(getattr(value, '__geo_interface__', value))
+
+    def _get_fragment_parameters(self, **additional_parameters) -> dict:
+        fragment_parameters = {}
+        for ext in APIExtensions:
+            if self.api_ext.implements(ext):
+                fragment_parameters.update(self.api_ext[ext].search_parameters(**additional_parameters))
+        return fragment_parameters
 
     @property
     def search_parameters_get(self) -> dict:

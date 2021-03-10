@@ -129,7 +129,8 @@ class API(pystac.Catalog, STACAPIObjectMixin):
         collections: Optional[CollectionsLike] = None,
         max_items: Optional[int] = None,
         method: Optional[str] = None,
-        next_resolver: Optional[Callable] = None
+        next_resolver: Optional[Callable] = None,
+        **additional_parameters
     ) -> ItemSearch:
         """Query the ``/search`` endpoint using the given parameters.
 
@@ -181,6 +182,8 @@ class API(pystac.Catalog, STACAPIObjectMixin):
         next_resolver: Callable, optional
             A callable that will be used to construct the next request based on a "next" link and the previous request.
             Defaults to using the :func:`~pystac_api.paging.simple_stac_resolver`.
+        **additional_parameters
+            Additional search parameters that may be used by API Extension implementations.
 
         Returns
         -------
@@ -217,5 +220,6 @@ class API(pystac.Catalog, STACAPIObjectMixin):
             max_items=max_items,
             method=method,
             next_resolver=next_resolver,
-            conformance=list(self.conformance)
+            conformance=list(self.conformance),
+            **additional_parameters,
         )

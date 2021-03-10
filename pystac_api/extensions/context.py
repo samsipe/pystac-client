@@ -4,9 +4,8 @@ from typing import Optional
 
 from pystac.extensions.base import ExtensionDefinition
 
-from pystac_api import API, APIExtensions, ConformanceClasses
+from pystac_api import API, APIExtensions, ConformanceClasses, ItemCollection
 from pystac_api.extensions import base
-from pystac_api.item_collection import ItemCollection
 
 
 class ContextItemCollectionExtension(base.ItemCollectionFragment):
